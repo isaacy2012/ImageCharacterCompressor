@@ -16,6 +16,7 @@
         <option value="Kotlin File" />
         <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -28,15 +29,29 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="codeWithMe.voiceChat.enabledByDefault" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CharacterEncoderTest">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -48,16 +63,62 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ImageCharacterCompressorKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ImageCharacterCompressorKt" />
+    <configuration name="CharacterEncoderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CharacterEncoderTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CharacterEncoderTest.encode_dimension_test_01" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CharacterEncoderTest" />
+      <option name="METHOD_NAME" value="encode_dimension_test_01" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CharacterEncoderTest.encode_dimension_test_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CharacterEncoderTest" />
+      <option name="METHOD_NAME" value="encode_dimension_test_02" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CharacterEncoderTest.encode_dimension_test_03" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CharacterEncoderTest" />
+      <option name="METHOD_NAME" value="encode_dimension_test_03" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CharacterEncoderTest.encode_int_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="CharacterEncoderTest" />
+      <option name="METHOD_NAME" value="encode_int_test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.ImageCharacterCompressorKt" />
+        <item itemvalue="JUnit.CharacterEncoderTest" />
+        <item itemvalue="JUnit.CharacterEncoderTest.encode_dimension_test_03" />
+        <item itemvalue="JUnit.CharacterEncoderTest.encode_dimension_test_02" />
+        <item itemvalue="JUnit.CharacterEncoderTest.encode_dimension_test_01" />
+        <item itemvalue="JUnit.CharacterEncoderTest.encode_int_test" />
       </list>
     </recent_temporary>
   </component>
@@ -77,10 +138,25 @@
       <workItem from="1624543109641" duration="195000" />
       <workItem from="1624543435086" duration="65000" />
       <workItem from="1624543781777" duration="4868000" />
+      <workItem from="1624947577767" duration="129000" />
+      <workItem from="1625064085683" duration="53000" />
+      <workItem from="1625064833459" duration="49000" />
+      <workItem from="1625146172795" duration="5468000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/CharacterEncoder.kt</url>
+          <line>15</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
