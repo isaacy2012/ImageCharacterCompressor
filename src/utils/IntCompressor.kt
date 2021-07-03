@@ -7,17 +7,28 @@ import VALUE_INT_BEGIN
 import kotlin.test.assertTrue
 
 
+/**
+ * Compresses a dimension [that comes after a double pixel]
+ * into a CharArray
+ */
 fun Int.compressDimension(): CharArray {
-    return compressInt(this)
+    return compressValue(this)
 }
 
+/**
+ * Compresses a dimension that comes after a single pixel
+ * into a CharArray
+ */
 fun Int.compressDimensionSP(): CharArray {
-    val ret = compressInt(this)
+    val ret = compressValue(this)
     ret[0] = ret[0] + 1 + MAX_DIMENSION
     return ret
 }
 
-private fun compressInt(x: Int): CharArray {
+/**
+ * Compresses a value into a CharArray
+ */
+private fun compressValue(x: Int): CharArray {
         var dx = x;
         val ret = ArrayList<Char>()
         while (dx != 0) {
@@ -28,6 +39,9 @@ private fun compressInt(x: Int): CharArray {
         return ret.toCharArray();
 }
 
+/**
+ * Encodes an integer into character
+ */
 fun encodeInt(x: Int): Char {
     return encodeRawInt(x + CHAR_BEGIN)
 }
