@@ -140,39 +140,42 @@ internal class CharacterEncoderTests {
         assertEquals(expected, actual)
     }
 
-    private fun arrayStringOf(vararg elements: Int): String {
-        return elements.map { CHAR_BEGIN + it }.toIntArray().contentToString()
-    }
-
+    /**
+     * Convert ICC Char into human-readable form
+     */
     private fun parseChar(ch: Char): String {
         val intch = ch.toInt()
         assertTrue(intch >= CHAR_BEGIN)
         assertTrue(intch <= CHAR_MAX)
         when {
             intch < VALUE_INT_BEGIN -> {
+                // Pixel pair
                 val left = (((intch - CHAR_BEGIN) ushr 3) or 0).toString()
                 val right = ((intch - CHAR_BEGIN) and PIXEL_MAX_DEPTH).toString()
                 return "$left,$right"
             }
             intch < VALUE_INT_BEGIN_SP -> {
+                // value (dimension)
                 return "v" + (intch - VALUE_INT_BEGIN).toString()
             }
             intch < LAST -> {
+                // single pixel-breaking value (dimension)
                 return "vsp" + (intch - (VALUE_INT_BEGIN_SP)).toString()
             }
             else -> {
-                when (intch) {
+                // Special codes
+                return when (intch) {
                     255 -> {
-                        return "DECORATOR_START_ID"
+                        "DECORATOR_START_ID"
                     }
                     254 -> {
-                        return "DECORATOR_INT_ID"
+                        "DECORATOR_INT_ID"
                     }
                     253 -> {
-                        return "DECORATOR_END_ID"
+                        "DECORATOR_END_ID"
                     }
                     else -> {
-                        return "r$intch"
+                        "r$intch"
                     }
                 }
             }
