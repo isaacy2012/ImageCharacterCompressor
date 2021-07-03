@@ -11,13 +11,14 @@ fun Int.compressDimension(): CharArray {
     return compressInt(this)
 }
 
-private fun compressInt(x: Int): CharArray {
-        // take the given number
-        // convert it into decimal
-        // divide the decimal with the target base
-        var dx = x;
+fun Int.compressDimensionSP(): CharArray {
+    val ret = compressInt(this)
+    ret[0] = ret[0] + 1 + MAX_DIMENSION
+    return ret
+}
 
-        // must be in decimal
+private fun compressInt(x: Int): CharArray {
+        var dx = x;
         val ret = ArrayList<Char>()
         while (dx != 0) {
             val dxValue = dx % MAX_DIMENSION;
