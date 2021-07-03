@@ -1,12 +1,17 @@
 package utils
 
 import CHAR_BEGIN
-import INT_RAW_MAX
-import MAX_DIMENSION_INT
-import imageObjects.Pixel
+import CHAR_MAX
+import MAX_DIMENSION
+import VALUE_INT_BEGIN
 import kotlin.test.assertTrue
 
-fun compressInt(x: Int): CharArray {
+
+fun Int.compressDimension(): CharArray {
+    return compressInt(this)
+}
+
+private fun compressInt(x: Int): CharArray {
         // take the given number
         // convert it into decimal
         // divide the decimal with the target base
@@ -15,20 +20,21 @@ fun compressInt(x: Int): CharArray {
         // must be in decimal
         val ret = ArrayList<Char>()
         while (dx != 0) {
-            val dxValue = dx % MAX_DIMENSION_INT;
-            ret.add(0, encodeRawInt(dxValue));
-            dx /= MAX_DIMENSION_INT;
+            val dxValue = dx % MAX_DIMENSION;
+            ret.add(0, encodeRawInt(dxValue+VALUE_INT_BEGIN));
+            dx /= MAX_DIMENSION;
         }
         return ret.toCharArray();
 }
 
-fun encodeRawInt(x: Int): Char {
-    assertTrue(x <= INT_RAW_MAX-CHAR_BEGIN)
-    assertTrue(x >= 0)
-    return (CHAR_BEGIN+x).toChar()
+fun encodeInt(x: Int): Char {
+    return encodeRawInt(x + CHAR_BEGIN)
 }
 
-fun encodePixelPair(a: Pixel, b: Pixel): Char {
-    return encodeRawInt((a.color shl 3) or b.color)
+fun encodeRawInt(x: Int): Char {
+    assertTrue(x <= CHAR_MAX)
+    assertTrue(x >= CHAR_BEGIN)
+    return (x).toChar()
 }
+
 

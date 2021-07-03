@@ -1,8 +1,9 @@
+
 import exceptions.ImageSizeException
 import java.awt.Color
 import java.io.File
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 import javax.imageio.ImageIO
 
 class Image(fileName: String) {

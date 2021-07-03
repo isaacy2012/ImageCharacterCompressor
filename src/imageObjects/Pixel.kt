@@ -1,9 +1,8 @@
 package imageObjects
 
-import Compressible
 import PIXEL_MAX_DEPTH
-import utils.encodePixelPair
-import utils.encodeRawInt
+import SINGLE_PIXEL_CHAR
+import utils.encodeInt
 
 open class Pixel(val color: Int): ImageObject {
     init {
@@ -12,6 +11,10 @@ open class Pixel(val color: Int): ImageObject {
     }
 
     fun compressWithNext(next: Pixel): Char {
-        return encodePixelPair(this, next)
+        return encodeInt((this.color shl 3) or next.color)
+    }
+
+    fun compressSingle(): CharArray {
+        return charArrayOf(encodeInt(this.color shl 3), SINGLE_PIXEL_CHAR)
     }
 }
