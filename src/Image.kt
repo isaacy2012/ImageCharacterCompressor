@@ -1,17 +1,9 @@
+import exceptions.ImageSizeException
 import java.awt.Color
 import java.io.File
 import java.io.IOException
 import java.util.ArrayList
 import javax.imageio.ImageIO
-
-private const val MAX_PIXELS = 900
-private const val PIXEL_MAX_DEPTH = 7
-private const val RGB_MAX_DEPTH = 255
-private const val K = PIXEL_MAX_DEPTH / RGB_MAX_DEPTH.toDouble()
-
-private const val RED_WEIGHT = 0.3
-private const val GREEN_WEIGHT = 0.59
-private const val BLUE_WEIGHT = 0.11
 
 class Image(fileName: String) {
     private var width: Int = 0

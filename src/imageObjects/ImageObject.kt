@@ -1,0 +1,4 @@
+package imageObjects
+
+interface ImageObject {
+}
