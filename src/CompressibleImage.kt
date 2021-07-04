@@ -18,6 +18,7 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
          * Make a CompressibleImage from an Image
          */
         fun of(image: Image): CompressibleImage {
+            // TODO add logic for detecting and adding squares
             val data = ArrayList<ImageObject>()
             for (row in 0 until image.height) {
                 for (col in 0 until image.width) {
