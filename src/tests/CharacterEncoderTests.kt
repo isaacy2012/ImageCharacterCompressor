@@ -15,15 +15,19 @@ import imageObjects.Pixel
 import imageObjects.Square
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import utils.charArrayParser.parseDimension
+import utils.compressDimension
+import utils.compressDimensionSP
 import utils.encodeInt
 import java.util.*
+import kotlin.math.abs
 
 internal class CharacterEncoderTests {
 
     @Test
     fun encode_raw_int_test() {
         for (i in 0..INT_RAW_MAX - CHAR_BEGIN) {
-            assertEquals(i + CHAR_BEGIN, encodeInt(i).toInt())
+            assertEquals(i + CHAR_BEGIN.toInt(), encodeInt(i).toInt())
         }
     }
 
@@ -32,24 +36,36 @@ internal class CharacterEncoderTests {
         var counter = 0
         for (i in 0..PIXEL_MAX_DEPTH) {
             for (j in 0..PIXEL_MAX_DEPTH) {
-                assertEquals(counter + CHAR_BEGIN, Pixel(i).compressWithNext(Pixel(j)).toInt())
+                assertEquals(counter + CHAR_BEGIN.toInt(), Pixel(i).compressWithNext(Pixel(j)).toInt())
                 counter++
             }
         }
     }
 
     @Test
+    fun encode_dimension_test() {
+        val random = Random(1)
+        for (i in 0..1000) {
+            val num = abs(random.nextInt())
+            val list = num.compressDimension().toList()
+            assertEquals(num, parseDimension(ArrayDeque(list)))
+            val list2 = num.compressDimensionSP().toList()
+            assertEquals(num, parseDimension(ArrayDeque(list2)))
+        }
+    }
+
+    @Test
     fun nocollisions() {
-        val checked = HashSet<Int>()
+        val checked = HashSet<Char>()
         checked.add(LAST)
-        for (i in VALUE_INT_BEGIN..VALUE_INT_BEGIN+MAX_DIMENSION) {
+        for (i in VALUE_INT_BEGIN..VALUE_INT_BEGIN + MAX_DIMENSION.toInt()) {
             assertFalse(checked.contains(i))
             checked.add(i)
-            assertEquals("v" + (i-VALUE_INT_BEGIN), parseChar(i.toChar()))
+            assertEquals("v" + (i - VALUE_INT_BEGIN), parseChar(i))
         }
-        for (i in VALUE_INT_BEGIN_SP..VALUE_INT_BEGIN_SP+MAX_DIMENSION) {
+        for (i in VALUE_INT_BEGIN_SP..VALUE_INT_BEGIN_SP + MAX_DIMENSION.toInt()) {
             assertFalse(checked.contains(i))
-            assertEquals("vsp" + (i-VALUE_INT_BEGIN_SP), parseChar(i.toChar()))
+            assertEquals("vsp" + (i - VALUE_INT_BEGIN_SP), parseChar(i))
         }
     }
 
@@ -60,9 +76,24 @@ internal class CharacterEncoderTests {
                 Pixel(1), Square(2, Pixel(0)),
                 Pixel(3))
         val image = CompressibleImage(3, 3, data)
-        val expected = arrayOf("0,1", "2,1", "v2", "0,3").contentToString()
+        val expected = arrayOf("vsp3", "vsp3", "0,1", "2,1", "v2", "0,3").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun encode_decode_image_test_01() {
+        val data = arrayListOf(
+                Pixel(0), Pixel(1), Pixel(2),
+                Pixel(1), Square(2, Pixel(0)),
+                Pixel(3))
+        val image = CompressibleImage(3, 3, data)
+        val charArray = image.compress()
+        val decoded = CompressibleImage.fromCharArray(charArray)
+
+        assertEquals(3, decoded.width)
+        assertEquals(3, decoded.height)
+        assertEquals(image.toString(), decoded.toString())
     }
 
     /**
@@ -78,7 +109,7 @@ internal class CharacterEncoderTests {
                 Pixel(3), Pixel(2), Pixel(1)
         )
         val image = CompressibleImage(3, 3, data)
-        val expected = arrayOf("1,0", "vsp2", "1,1", "3,2", "1,0").contentToString()
+        val expected = arrayOf("vsp3", "vsp3", "1,0", "vsp2", "1,1", "3,2", "1,0").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
     }
@@ -97,7 +128,7 @@ internal class CharacterEncoderTests {
                 Pixel(3)
         )
         val image = CompressibleImage(3, 3, data)
-        val expected = arrayOf("v2", "0,1", "2,1", "2,3").contentToString()
+        val expected = arrayOf("vsp3", "vsp3", "vsp2", "0,1", "2,1", "2,3").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
     }
@@ -125,7 +156,7 @@ internal class CharacterEncoderTests {
                 Square(3, Pixel(0))
         )
         val image = CompressibleImage(3, 3, data)
-        val expected = arrayOf("v3", "0,0").contentToString()
+        val expected = arrayOf("vsp3", "vsp3", "vsp3", "0,0").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
     }
@@ -136,7 +167,7 @@ internal class CharacterEncoderTests {
                 Square(300, Pixel(2))
         )
         val image = CompressibleImage(300, 300, data)
-        val expected = arrayOf("v3", "v"+(300-3*MAX_DIMENSION), "2,0").contentToString()
+        val expected = arrayOf("vsp3", "v72", "vsp3", "v72", "vsp3", "v" + (300 - 3 * MAX_DIMENSION.toInt()), "2,0").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
     }
@@ -159,38 +190,40 @@ internal class CharacterEncoderTests {
      * Convert ICC Char into human-readable form
      */
     private fun parseChar(ch: Char): String {
-        val intch = ch.toInt()
-        assertTrue(intch >= CHAR_BEGIN)
-        assertTrue(intch <= CHAR_MAX)
+        assertTrue(ch >= CHAR_BEGIN)
+        assertTrue(ch <= CHAR_MAX)
         when {
-            intch < VALUE_INT_BEGIN -> {
+            ch < VALUE_INT_BEGIN -> {
                 // Pixel pair
-                val left = (((intch - CHAR_BEGIN) ushr 3) or 0).toString()
-                val right = ((intch - CHAR_BEGIN) and PIXEL_MAX_DEPTH).toString()
+                val left = (((ch - CHAR_BEGIN) ushr 3) or 0).toString()
+                val right = ((ch - CHAR_BEGIN) and PIXEL_MAX_DEPTH).toString()
                 return "$left,$right"
             }
-            intch < VALUE_INT_BEGIN_SP -> {
+            ch < VALUE_INT_BEGIN_SP -> {
                 // value (dimension)
-                return "v" + (intch - VALUE_INT_BEGIN).toString()
+                return "v" + (ch - VALUE_INT_BEGIN).toString()
             }
-            intch < LAST -> {
+            ch < LAST -> {
                 // single pixel-breaking value (dimension)
-                return "vsp" + (intch - (VALUE_INT_BEGIN_SP)).toString()
+                return "vsp" + (ch - (VALUE_INT_BEGIN_SP)).toString()
             }
             else -> {
                 // Special codes
-                return when (intch) {
-                    255 -> {
+                return when (ch) {
+                    255.toChar() -> {
                         "DECORATOR_START_ID"
                     }
-                    254 -> {
+                    254.toChar() -> {
                         "DECORATOR_INT_ID"
                     }
-                    253 -> {
+                    253.toChar() -> {
                         "DECORATOR_END_ID"
                     }
+                    252.toChar() -> {
+                        "COMMA"
+                    }
                     else -> {
-                        "r$intch"
+                        "r$ch"
                     }
                 }
             }

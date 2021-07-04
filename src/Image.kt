@@ -127,12 +127,11 @@ class Image() {
 
     override fun toString(): String {
         val sb = StringBuilder()
-        for (arr in this.data) {
-            for (str in arr) {
-                sb.append("$str ")
-            }
-            sb.append("\n")
-        }
+        sb.append(this.data.joinToString("\n"){
+            val innersb = StringBuilder()
+            innersb.append(it.joinToString(" "))
+            innersb.toString()
+        })
         return (sb.toString())
     }
 

@@ -41,6 +41,10 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
 
     override fun compress(): CharArray {
         val list = ArrayList<Char>()
+        //add width and height information
+        list.addAll(width.compressDimensionSP())
+        list.addAll(height.compressDimensionSP())
+
         var cache: Pixel? = null
         var counter = 0
         val dataQueue = ArrayDeque(data)
@@ -65,8 +69,13 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
                     // Add this square's dimension as a single pixel-breaking dimension
                     list.addAll(temp.dimension.compressDimensionSP())
                 } else {
-                    // Add this square's dimension normally
-                    list.addAll(temp.dimension.compressDimension())
+                    // if this is the first addition
+                    if (counter == 0) {
+                        list.addAll(temp.dimension.compressDimensionSP())
+                    } else {
+                        // Add this square's dimension normally
+                        list.addAll(temp.dimension.compressDimension())
+                    }
                 }
                 cache = temp.pixel
                 counter += temp.dimension * temp.dimension

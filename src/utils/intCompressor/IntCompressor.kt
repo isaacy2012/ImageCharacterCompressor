@@ -4,6 +4,8 @@ import CHAR_BEGIN
 import CHAR_MAX
 import MAX_DIMENSION
 import VALUE_INT_BEGIN
+import isNonSPValue
+import isSPValue
 import kotlin.test.assertTrue
 
 
@@ -21,32 +23,45 @@ fun Int.compressDimension(): CharArray {
  */
 fun Int.compressDimensionSP(): CharArray {
     val ret = compressValue(this)
-    ret[0] = ret[0] + 1 + MAX_DIMENSION
+    ret[0] = ret[0].toSP()
     return ret
+}
+
+fun Char.toSP(): Char {
+    assertTrue(this.isNonSPValue())
+    return this+1+MAX_DIMENSION.toInt()
+}
+
+fun Char.fromSP(): Char {
+    assertTrue(this.isSPValue())
+    return this-1-MAX_DIMENSION.toInt()
 }
 
 /**
  * Compresses a value into a CharArray
  */
 private fun compressValue(x: Int): CharArray {
-        var dx = x;
-        val ret = ArrayList<Char>()
-        while (dx != 0) {
-            val dxValue = dx % MAX_DIMENSION;
-            ret.add(0, encodeRawInt(dxValue+VALUE_INT_BEGIN));
-            dx /= MAX_DIMENSION;
-        }
-        return ret.toCharArray();
+    if (x == 0) {
+        return charArrayOf(encodeRawInt((0+VALUE_INT_BEGIN.toInt()).toChar()))
+    }
+    var dx = x;
+    val ret = ArrayList<Char>()
+    while (dx != 0) {
+        val dxValue = dx % MAX_DIMENSION.toInt();
+        ret.add(0, encodeRawInt((dxValue+VALUE_INT_BEGIN.toInt()).toChar()));
+        dx /= MAX_DIMENSION.toInt();
+    }
+    return ret.toCharArray();
 }
 
 /**
  * Encodes an integer into character
  */
 fun encodeInt(x: Int): Char {
-    return encodeRawInt(x + CHAR_BEGIN)
+    return encodeRawInt((x + CHAR_BEGIN.toInt()).toChar())
 }
 
-fun encodeRawInt(x: Int): Char {
+private fun encodeRawInt(x: Char): Char {
     assertTrue(x <= CHAR_MAX)
     assertTrue(x >= CHAR_BEGIN)
     return (x).toChar()

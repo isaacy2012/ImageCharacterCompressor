@@ -4,10 +4,10 @@ import CHAR_BEGIN
 import PIXEL_MAX_DEPTH
 import utils.encodeInt
 
-fun getPixelPairFromIntChar(intch: Int): Array<Pixel> {
+fun getPixelPairFromChar(ch: Char): Array<Pixel> {
     // Pixel pair
-    val left = (((intch - CHAR_BEGIN) ushr 3) or 0)
-    val right = ((intch - CHAR_BEGIN) and PIXEL_MAX_DEPTH)
+    val left = (((ch - CHAR_BEGIN) ushr 3) or 0)
+    val right = ((ch - CHAR_BEGIN) and PIXEL_MAX_DEPTH)
     return arrayOf(Pixel(left), Pixel(right))
 }
 
