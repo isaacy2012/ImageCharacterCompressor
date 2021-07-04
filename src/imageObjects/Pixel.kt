@@ -1,7 +1,15 @@
 package imageObjects
 
+import CHAR_BEGIN
 import PIXEL_MAX_DEPTH
 import utils.encodeInt
+
+fun getPixelPairFromIntChar(intch: Int): Array<Pixel> {
+    // Pixel pair
+    val left = (((intch - CHAR_BEGIN) ushr 3) or 0)
+    val right = ((intch - CHAR_BEGIN) and PIXEL_MAX_DEPTH)
+    return arrayOf(Pixel(left), Pixel(right))
+}
 
 open class Pixel(val color: Int): ImageObject {
     init {
@@ -29,5 +37,9 @@ open class Pixel(val color: Int): ImageObject {
      */
     fun compressSingle(): Char {
         return encodeInt(this.color shl 3)
+    }
+
+    override fun toString(): String {
+        return color.toString()
     }
 }

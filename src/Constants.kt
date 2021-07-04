@@ -8,6 +8,7 @@ const val K = PIXEL_MAX_DEPTH / RGB_MAX_DEPTH.toDouble()
 const val DECORATOR_START_ID = 255.toChar()
 const val DECORATOR_INT_ID = 254.toChar()
 const val DECORATOR_END_ID = 253.toChar()
+const val SEP = 252.toChar()
 const val LAST = 251
 
 const val RED_WEIGHT = 0.3

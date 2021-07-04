@@ -1,9 +1,13 @@
 
 import exceptions.ImageSizeException
+import imageObjects.Pixel
+import imageObjects.Square
 import java.awt.Color
 import java.io.File
 import java.io.IOException
+import java.util.*
 import javax.imageio.ImageIO
+import kotlin.math.roundToInt
 
 private fun convertRgbToGrayscale(rgb: Int): Int {
     val pixel = Color(rgb)
@@ -15,13 +19,61 @@ private fun convertRgbToGrayscale(rgb: Int): Int {
     return ret
 }
 
-class Image(fileName: String) {
+class Image() {
+
+    companion object {
+        fun of(cimage: CompressibleImage): Image {
+            val newData: Array<Array<Pixel?>> = Array(cimage.height) { arrayOfNulls<Pixel>(cimage.width) }
+            var row = 0;
+            var col = 0;
+            val dataQueue = ArrayDeque(cimage.data)
+            //pop from queue
+            while (dataQueue.isEmpty() == false) {
+                // wrap around at width
+                if (col == cimage.width) {
+                    row++
+                    col = 0
+                }
+                val temp = dataQueue.pop()
+                //add to the array if single pixel
+                if (temp is Pixel) {
+                    // if current [row][col] has already been filled by a square
+                    // keep going through the scan until there is an unfilled pixel space
+                    while (newData[row][col] != null) {
+                        col++
+                        if (col == cimage.width) {
+                            row++
+                            col = 0
+                        }
+                    }
+                    newData[row][col] = temp
+                } else if (temp is Square) {
+                    // fill each pixel space in the square
+                    for (dRow in 0 until temp.dimension) {
+                        for (dCol in 0 until temp.dimension) {
+                            newData[row+dRow][col+dCol] = temp.pixel
+                        }
+                    }
+                }
+                //after each, continue scan
+                col++
+            }
+            return Image(cimage.width, cimage.height, newData)
+        }
+    }
+
     var width: Int = 0
     var height: Int = 0
 
-    lateinit var data: Array<Array<Int?>>
+    lateinit var data: Array<Array<Pixel?>>
 
-    init {
+    constructor(width: Int, height: Int, data: Array<Array<Pixel?>>) : this() {
+        this.width = width
+        this.height = height
+        this.data = data
+    }
+
+    constructor(fileName: String) : this() {
         try {
             val img = ImageIO.read(File(fileName))
             this.width = img.width
@@ -31,11 +83,11 @@ class Image(fileName: String) {
             }
 
             //Scanline
-            data = Array(height) { arrayOfNulls<Int>(width) }
+            data = Array(height) { arrayOfNulls<Pixel>(width) }
             for (i_height in 0 until height) {
                 for (i_width in 0 until width) {
                     val grayColor = convertRgbToGrayscale(img.getRGB(i_width, i_height))
-                    data[i_height][i_width] = grayColor
+                    data[i_height][i_width] = Pixel(grayColor)
                 }
             }
         } catch (e: IOException) {
@@ -43,8 +95,46 @@ class Image(fileName: String) {
         }
     }
 
-    fun resizeToWidth(): Image {
-        TODO()
+    private fun calculateAverage(row: Int, col: Int, rowSearch: Double, colSearch: Double): Int {
+        var total = 0
+        val rowStart = (row*rowSearch).roundToInt()
+        val colStart = (col*colSearch).roundToInt()
+//        println("height: $height width: $width rowStart: $rowStart colStart: $colStart")
+        for (dRow in rowStart until (rowStart+rowSearch).toInt()) {
+            for (dCol in colStart until (colStart+colSearch).toInt()) {
+                val pixel = data[dRow][dCol]
+                if (pixel != null) {
+                    total += pixel.color
+                }
+            }
+        }
+        return (total/(rowSearch*colSearch)).roundToInt()
+
+    }
+
+    fun resizeToWidth(newWidth: Int): Image {
+        val newHeight = (newWidth / width.toDouble() * height).toInt()
+        val newData = Array(newHeight) { arrayOfNulls<Pixel>(newWidth) }
+        val rowSearch = height/newHeight.toDouble()
+        val colSearch = width/newWidth.toDouble()
+        for (row in 0 until newHeight) {
+            for (col in 0 until newWidth) {
+                newData[row][col] = Pixel(calculateAverage(row, col, rowSearch, colSearch))
+            }
+        }
+        return Image(newWidth, newHeight, newData)
+    }
+
+    override fun toString(): String {
+        val sb = StringBuilder()
+        for (arr in this.data) {
+            for (str in arr) {
+                sb.append("$str ")
+            }
+            sb.append("\n")
+        }
+        return (sb.toString())
     }
 
 }
+

@@ -4,6 +4,7 @@ import CHAR_BEGIN
 import CHAR_MAX
 import CompressibleImage
 import INT_RAW_MAX
+import Image
 import LAST
 import MAX_DIMENSION
 import PIXEL_MAX_DEPTH
@@ -138,6 +139,20 @@ internal class CharacterEncoderTests {
         val expected = arrayOf("v3", "v"+(300-3*MAX_DIMENSION), "2,0").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun encode_image_from_file() {
+        val image = Image("samd.png")
+        print(image.toString())
+        println("==========================================")
+        val smaller = image.resizeToWidth(20)
+        print(smaller.toString())
+        println("==========================================")
+        val compressible = CompressibleImage.of(smaller)
+        val actual = compressible.compress().map { parseChar(it) }.toTypedArray().contentToString()
+        println(actual)
+        assertEquals(smaller.toString(), compressible.toString())
     }
 
     /**
