@@ -12,7 +12,6 @@ import isPixel
 import isSPValue
 import utils.fromSP
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.test.assertTrue
 
 fun parseCharArray(arr: CharArray): CompressibleImage {
@@ -20,27 +19,39 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
     val data = ArrayList<ImageObject>()
     val width = parseDimension(queue)
     val height = parseDimension(queue)
+    val wh = width * height
 
-    while (queue.isEmpty() == false) {
+    var counter = 0
+    while (queue.isEmpty() == false && counter < wh) {
         val nextCh = queue.peek()
         when {
-            nextCh.isPixel() ->  {
+            nextCh.isPixel() -> {
                 data.addAll(parsePixelPair(queue))
+                counter += 2
             }
             //non SP Value or it is the first Square
             nextCh.isNonSPValue() || (nextCh.isSPValue() && data.isEmpty()) -> {
                 val dimension: Int = parseDimension(queue)
-                val pixels: Array<Pixel> = parsePixel(queue)
+                val pixels: Array<Pixel> = parsePixelPair(queue)
                 data.add(Square(dimension, pixels[0]))
+                counter += pow2(dimension)
                 data.add(pixels[1])
+                counter++
             }
             nextCh.isSPValue() -> {
                 assertTrue(data.size > 0)
-                assertTrue(data[data.size-1] is Pixel)
+                assertTrue(data[data.size - 1] is Pixel)
                 // single pixel-breaking value (dimension)
-                val pixel: Pixel = data.removeAt(data.size - 1) as Pixel
+                data.removeAt(data.size - 1) as Pixel
+                counter--
                 val dimension: Int = parseDimension(queue)
-                data.add(Square(dimension, pixel))
+                val pixels: Array<Pixel> = parsePixelPair(queue)
+                data.add(Square(dimension, pixels[0]))
+                counter += pow2(dimension)
+                if (counter < wh) {
+                    data.add(pixels[1])
+                    counter++
+                }
             }
             else -> {
                 println("Error at $nextCh")
@@ -51,7 +62,11 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
     return CompressibleImage(width, height, data)
 }
 
-fun parsePixelPair(queue: ArrayDeque<Char>): Array<Pixel> {
+private fun pow2(x: Int): Int {
+    return x * x
+}
+
+private fun parsePixelPair(queue: ArrayDeque<Char>): Array<Pixel> {
     return getPixelPairFromChar(queue.pop())
 }
 
@@ -60,31 +75,26 @@ fun parsePixelPair(queue: ArrayDeque<Char>): Array<Pixel> {
  * a COMMA character or a non-VALUE character.
  * @param queue the queue containing the compressed characters
  */
-fun parseDimension(queue: ArrayDeque<Char>): Int {
+private fun parseDimension(queue: ArrayDeque<Char>): Int {
     val intList = ArrayList<Int>()
     val first = queue.pop()
     if (first.isSPValue()) {
-        intList.add(first.fromSP().toInt()-VALUE_INT_BEGIN.toInt())
+        intList.add(first.fromSP().toInt() - VALUE_INT_BEGIN.toInt())
     } else {
         assertTrue(first.isNonSPValue())
-        intList.add(first.toInt()-VALUE_INT_BEGIN.toInt())
+        intList.add(first.toInt() - VALUE_INT_BEGIN.toInt())
     }
 //    intList.add((queue.pop().toInt()-VALUE_INT_BEGIN.toInt()))
     while (queue.isEmpty() == false && queue.peek().isNonSPValue()) {
-        intList.add((queue.pop().toInt()-VALUE_INT_BEGIN.toInt()))
+        intList.add((queue.pop().toInt() - VALUE_INT_BEGIN.toInt()))
     }
 
 
     var ret = 0
     var pow = 1
-    for (i in intList.size-1 downTo 0) {
+    for (i in intList.size - 1 downTo 0) {
         ret += intList[i] * pow
         pow *= MAX_DIMENSION.toInt()
     }
     return ret
-}
-
-fun parsePixel(queue: ArrayDeque<Char>): Array<Pixel> {
-    val ch = queue.pop()
-    return getPixelPairFromChar(ch)
 }

@@ -15,14 +15,14 @@
       <list>
         <option value="Class" />
         <option value="JUnit5 Test Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
         <option value="Kotlin File" />
       </list>
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/Main.kt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-14.0.1/lib/src.zip!/java.base/java/lang/RuntimeException.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="KotlinCodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
@@ -49,7 +49,10 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.maddyhome.idea.vim.ui.VimEmulationConfigurable" />
+  </component>
+  <component name="ReaderModeSettings">
+    <option name="showRenderedDocs" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -74,7 +77,18 @@
       <recent name="imageObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CharacterEncoderTests">
+  <component name="RunManager" selected="JUnit.ValueTests.encode_dimension_multi_test">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CharacterEncoderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
@@ -90,7 +104,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_decode_image_test_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ValueTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -99,14 +113,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_decode_image_test_02" />
+      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ValueTests.encode_dimension_multi_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
+      <option name="METHOD_NAME" value="encode_dimension_multi_test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_decode_image_test_04" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ValueTests.encode_dimension_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -115,14 +144,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_decode_image_test_04" />
+      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
+      <option name="METHOD_NAME" value="encode_dimension_test" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_decode_image_test_single_pixel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="tests in ImageCharacterCompressor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -131,36 +160,18 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_decode_image_test_single_pixel" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CharacterEncoderTests.toString_image_test_03" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ImageCharacterCompressor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="toString_image_test_03" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ValueTests.encode_dimension_multi_test" />
+        <item itemvalue="JUnit.ValueTests.encode_dimension_test" />
+        <item itemvalue="JUnit.ValueTests" />
+        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.CharacterEncoderTests" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_single_pixel" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_04" />
-        <item itemvalue="JUnit.CharacterEncoderTests.toString_image_test_03" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_02" />
       </list>
     </recent_temporary>
   </component>
@@ -187,6 +198,7 @@
       <workItem from="1625286960564" duration="34544000" />
       <workItem from="1625397899957" duration="5084000" />
       <workItem from="1625459996027" duration="2000" />
+      <workItem from="1625571646249" duration="9289000" />
     </task>
     <servers />
   </component>
@@ -197,13 +209,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
-          <line>68</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/Image.kt</url>
-          <line>25</line>
+          <line>74</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>

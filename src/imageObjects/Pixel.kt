@@ -40,6 +40,6 @@ open class Pixel(val color: Int): ImageObject {
     }
 
     override fun toString(): String {
-        return color.toString()
+        return "$color"
     }
 }

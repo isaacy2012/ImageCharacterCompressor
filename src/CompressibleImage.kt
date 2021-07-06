@@ -6,7 +6,6 @@ import utils.charArrayParser.parseCharArray
 import utils.compressDimension
 import utils.compressDimensionSP
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Make a compressed Image from an Image
@@ -47,6 +46,7 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
         list.addAll(height.compressDimensionSP())
 
         var cache: Pixel? = null
+        var lastSquare = false
         var counter = 0
         val dataQueue = ArrayDeque(data)
         //pop from queue
@@ -63,24 +63,26 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
                     cache = temp
                 }
                 counter++
+                lastSquare = false
             } else if (temp is Square) {
-                // If the cache has a pixel, we can add that along with the squares's pixel
+                // If the cache has a pixel, need to add the cache pixel as a single first
                 if (cache != null) {
-                    list.add(cache.compressWithNext(temp.pixel))
+                    list.add(cache.compressSingle())
                     cache = null
                     // Add this square's dimension as a single pixel-breaking dimension
                     list.addAll(temp.dimension.compressDimensionSP())
                 } else {
                     // if this is the first addition
-                    if (counter == 0) {
+                    if (counter == 0 || lastSquare) {
                         list.addAll(temp.dimension.compressDimensionSP())
                     } else {
                         // Add this square's dimension normally
                         list.addAll(temp.dimension.compressDimension())
                     }
-                    cache = temp.pixel
                 }
+                cache = temp.pixel
                 counter += temp.dimension * temp.dimension
+                lastSquare = true
             }
         }
         // If there is still a pixel left in the cache, flush it out

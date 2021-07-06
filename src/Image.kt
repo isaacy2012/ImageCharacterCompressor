@@ -29,29 +29,21 @@ class Image() {
             val dataQueue = ArrayDeque(cimage.data)
             //pop from queue
             while (dataQueue.isEmpty() == false && row < cimage.height) {
-                // wrap around at width
-                if (col == cimage.width) {
-                    row++
-                    col = 0
-                    if (row == cimage.height ) {
-                        break;
-                    }
-                }
                 val temp = dataQueue.pop()
-                //add to the array if single pixel
-                if (temp is Pixel) {
-                    // if current [row][col] has already been filled by a square
-                    // keep going through the scan until there is an unfilled pixel space
-                    while (newData[row][col] != null) {
-                        col++
-                        if (col == cimage.width) {
-                            row++
-                            col = 0
-                            if (row == cimage.height ) {
-                                break;
-                            }
+                // if current [row][col] has already been filled by a square
+                // keep going through the scan until there is an unfilled pixel space
+                while (newData[row][col] != null) {
+                    col++
+                    if (col == cimage.width) {
+                        row++
+                        col = 0
+                        if (row == cimage.height ) {
+                            break;
                         }
                     }
+                }
+                //add to the array if single pixel
+                if (temp is Pixel) {
                     newData[row][col] = temp
                 } else if (temp is Square) {
                     // fill each pixel space in the square
@@ -63,6 +55,14 @@ class Image() {
                 }
                 //after each, continue scan
                 col++
+                // wrap around at width
+                if (col == cimage.width) {
+                    row++
+                    col = 0
+                    if (row == cimage.height ) {
+                        break;
+                    }
+                }
             }
             return Image(cimage.width, cimage.height, newData)
         }
