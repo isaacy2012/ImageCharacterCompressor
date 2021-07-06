@@ -77,7 +77,7 @@
       <recent name="imageObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ValueTests.encode_dimension_multi_test">
+  <component name="RunManager" selected="JUnit.tests in ImageCharacterCompressor">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -167,10 +167,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.ValueTests.encode_dimension_multi_test" />
         <item itemvalue="JUnit.ValueTests.encode_dimension_test" />
         <item itemvalue="JUnit.ValueTests" />
-        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.CharacterEncoderTests" />
       </list>
     </recent_temporary>
@@ -198,7 +198,7 @@
       <workItem from="1625286960564" duration="34544000" />
       <workItem from="1625397899957" duration="5084000" />
       <workItem from="1625459996027" duration="2000" />
-      <workItem from="1625571646249" duration="9289000" />
+      <workItem from="1625571646249" duration="9676000" />
     </task>
     <servers />
   </component>

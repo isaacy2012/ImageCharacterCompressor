@@ -11,7 +11,7 @@ fun getPixelPairFromChar(ch: Char): Array<Pixel> {
     return arrayOf(Pixel(left), Pixel(right))
 }
 
-open class Pixel(val color: Int): ImageObject {
+data class Pixel(val color: Int): ImageObject {
     init {
         assert(color >= 0)
         assert(color <= PIXEL_MAX_DEPTH)
