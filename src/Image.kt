@@ -28,11 +28,14 @@ class Image() {
             var col = 0;
             val dataQueue = ArrayDeque(cimage.data)
             //pop from queue
-            while (dataQueue.isEmpty() == false) {
+            while (dataQueue.isEmpty() == false && row < cimage.height) {
                 // wrap around at width
                 if (col == cimage.width) {
                     row++
                     col = 0
+                    if (row == cimage.height ) {
+                        break;
+                    }
                 }
                 val temp = dataQueue.pop()
                 //add to the array if single pixel
@@ -44,6 +47,9 @@ class Image() {
                         if (col == cimage.width) {
                             row++
                             col = 0
+                            if (row == cimage.height ) {
+                                break;
+                            }
                         }
                     }
                     newData[row][col] = temp

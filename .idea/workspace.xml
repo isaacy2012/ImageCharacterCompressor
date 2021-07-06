@@ -49,7 +49,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="JavaDoc" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -74,20 +74,7 @@
       <recent name="imageObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.CharacterEncoderTests.encode_decode_image_test_01">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.CharacterEncoderTests">
     <configuration name="CharacterEncoderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
@@ -103,7 +90,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_decode_image_test_01" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CharacterEncoderTests.encode_decode_image_test_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -113,13 +100,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_decode_image_test_01" />
+      <option name="METHOD_NAME" value="encode_decode_image_test_02" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_dimension_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CharacterEncoderTests.encode_decode_image_test_04" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -129,13 +116,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_dimension_test" />
+      <option name="METHOD_NAME" value="encode_decode_image_test_04" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_image_test_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CharacterEncoderTests.encode_decode_image_test_single_pixel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -145,13 +132,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_image_test_02" />
+      <option name="METHOD_NAME" value="encode_decode_image_test_single_pixel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests.encode_image_test_05" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CharacterEncoderTests.toString_image_test_03" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -161,7 +148,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
-      <option name="METHOD_NAME" value="encode_image_test_05" />
+      <option name="METHOD_NAME" value="toString_image_test_03" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -169,11 +156,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_01" />
         <item itemvalue="JUnit.CharacterEncoderTests" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_image_test_02" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_dimension_test" />
-        <item itemvalue="JUnit.CharacterEncoderTests.encode_image_test_05" />
+        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_single_pixel" />
+        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_04" />
+        <item itemvalue="JUnit.CharacterEncoderTests.toString_image_test_03" />
+        <item itemvalue="JUnit.CharacterEncoderTests.encode_decode_image_test_02" />
       </list>
     </recent_temporary>
   </component>
@@ -197,7 +184,9 @@
       <workItem from="1625064085683" duration="53000" />
       <workItem from="1625064833459" duration="49000" />
       <workItem from="1625146172795" duration="5468000" />
-      <workItem from="1625286960564" duration="33593000" />
+      <workItem from="1625286960564" duration="34544000" />
+      <workItem from="1625397899957" duration="5084000" />
+      <workItem from="1625459996027" duration="2000" />
     </task>
     <servers />
   </component>
@@ -209,13 +198,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
-          <line>69</line>
+          <line>68</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/tests/CharacterEncoderTests.kt</url>
-          <line>92</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/src/Image.kt</url>
+          <line>25</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

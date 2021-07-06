@@ -64,9 +64,10 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
                 }
                 counter++
             } else if (temp is Square) {
-                // If the cache has a pixel, then it is alone, and needs to be compressed by itself
+                // If the cache has a pixel, we can add that along with the squares's pixel
                 if (cache != null) {
-                    list.add(cache.compressSingle())
+                    list.add(cache.compressWithNext(temp.pixel))
+                    cache = null
                     // Add this square's dimension as a single pixel-breaking dimension
                     list.addAll(temp.dimension.compressDimensionSP())
                 } else {
@@ -77,8 +78,8 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
                         // Add this square's dimension normally
                         list.addAll(temp.dimension.compressDimension())
                     }
+                    cache = temp.pixel
                 }
-                cache = temp.pixel
                 counter += temp.dimension * temp.dimension
             }
         }

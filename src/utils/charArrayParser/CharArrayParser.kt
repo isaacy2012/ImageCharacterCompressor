@@ -27,7 +27,8 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
             nextCh.isPixel() ->  {
                 data.addAll(parsePixelPair(queue))
             }
-            nextCh.isNonSPValue() -> {
+            //non SP Value or it is the first Square
+            nextCh.isNonSPValue() || (nextCh.isSPValue() && data.isEmpty()) -> {
                 val dimension: Int = parseDimension(queue)
                 val pixels: Array<Pixel> = parsePixel(queue)
                 data.add(Square(dimension, pixels[0]))
@@ -37,11 +38,9 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
                 assertTrue(data.size > 0)
                 assertTrue(data[data.size-1] is Pixel)
                 // single pixel-breaking value (dimension)
-                data.removeAt(data.size-1)
+                val pixel: Pixel = data.removeAt(data.size - 1) as Pixel
                 val dimension: Int = parseDimension(queue)
-                val pixels: Array<Pixel> = parsePixel(queue)
-                data.add(Square(dimension, pixels[0]))
-                data.add(pixels[1])
+                data.add(Square(dimension, pixel))
             }
             else -> {
                 println("Error at $nextCh")

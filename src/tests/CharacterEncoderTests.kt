@@ -24,11 +24,26 @@ import kotlin.math.abs
 
 internal class CharacterEncoderTests {
 
+    private fun encode_decode_test(width: Int, height: Int, data: ArrayList<ImageObject>) {
+        val image = CompressibleImage(width, height, data)
+        val charArray = image.compress()
+        val decoded = CompressibleImage.fromCharArray(charArray)
+
+        assertEquals(width, decoded.width)
+        assertEquals(height, decoded.height)
+        assertEquals(image.toString(), decoded.toString())
+    }
+
     @Test
     fun encode_raw_int_test() {
         for (i in 0..INT_RAW_MAX - CHAR_BEGIN) {
             assertEquals(i + CHAR_BEGIN.toInt(), encodeInt(i).toInt())
         }
+    }
+
+    fun consts() {
+        println(0.compressDimension()[0].toInt())
+        println(0.compressDimensionSP()[0].toInt())
     }
 
     @Test
@@ -82,18 +97,23 @@ internal class CharacterEncoderTests {
     }
 
     @Test
+    fun encode_decode_image_test_single_pixel() {
+        val data: ArrayList<ImageObject> = arrayListOf(
+                Pixel(0)
+        )
+        val image = CompressibleImage(3, 3, data)
+        val expected = arrayOf("vsp1", "vsp1", "1,0").contentToString()
+        val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
+        encode_decode_test(1, 1, data)
+    }
+
+    @Test
     fun encode_decode_image_test_01() {
         val data = arrayListOf(
                 Pixel(0), Pixel(1), Pixel(2),
                 Pixel(1), Square(2, Pixel(0)),
                 Pixel(3))
-        val image = CompressibleImage(3, 3, data)
-        val charArray = image.compress()
-        val decoded = CompressibleImage.fromCharArray(charArray)
-
-        assertEquals(3, decoded.width)
-        assertEquals(3, decoded.height)
-        assertEquals(image.toString(), decoded.toString())
+        encode_decode_test(3, 3, data)
     }
 
     /**
@@ -109,9 +129,19 @@ internal class CharacterEncoderTests {
                 Pixel(3), Pixel(2), Pixel(1)
         )
         val image = CompressibleImage(3, 3, data)
-        val expected = arrayOf("vsp3", "vsp3", "1,0", "vsp2", "1,1", "3,2", "1,0").contentToString()
+        val expected = arrayOf("vsp3", "vsp3", "1,1", "vsp2", "1,3", "2,1").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun encode_decode_image_test_02() {
+        val data = arrayListOf(
+                Pixel(1), Square(2, Pixel(1)),
+                Pixel(1),
+                Pixel(3), Pixel(2), Pixel(1)
+        )
+        encode_decode_test(3, 3, data)
     }
 
     /**
@@ -131,6 +161,17 @@ internal class CharacterEncoderTests {
         val expected = arrayOf("vsp3", "vsp3", "vsp2", "0,1", "2,1", "2,3").contentToString()
         val actual = image.compress().map { parseChar(it) }.toTypedArray().contentToString()
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun encode_decode_image_test_03() {
+        val data = arrayListOf(
+                Square(2, Pixel(0)), Pixel(1),
+                Pixel(2), Pixel(1),
+                Pixel(2),
+                Pixel(3)
+        )
+        encode_decode_test(3, 3, data)
     }
 
     @Test
@@ -172,17 +213,39 @@ internal class CharacterEncoderTests {
         assertEquals(expected, actual)
     }
 
+    /**
+     * 0 0 1 2
+     * 0 0 1 2
+     * 1 1 2 1
+     * 1 1 3 4
+     */
+    @Test
+    fun encode_decode_image_test_04() {
+        val data = arrayListOf(
+                Square(2, Pixel(0)), Pixel(1),
+                Pixel(2), Pixel(1),
+                Pixel(2),
+                Square(2, Pixel(1)),
+                Pixel(2), Pixel(1),
+                Pixel(3), Pixel(4)
+        )
+        val image = CompressibleImage(4, 4, data)
+        val expected = "" +
+                "0 0 1 2\n" +
+                "0 0 1 2\n" +
+                "1 1 2 1\n" +
+                "1 1 3 4"
+        val actual = image.toString()
+        assertEquals(expected, actual)
+        encode_decode_test(4, 4, data)
+    }
+
     @Test
     fun encode_image_from_file() {
         val image = Image("samd.png")
-        print(image.toString())
-        println("==========================================")
         val smaller = image.resizeToWidth(20)
-        print(smaller.toString())
-        println("==========================================")
         val compressible = CompressibleImage.of(smaller)
         val actual = compressible.compress().map { parseChar(it) }.toTypedArray().contentToString()
-        println(actual)
         assertEquals(smaller.toString(), compressible.toString())
     }
 
