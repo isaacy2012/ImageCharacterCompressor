@@ -1,4 +1,4 @@
-import images.CompressibleImage
+import images.EncodableImage
 import images.Image
 
 fun main(args: Array<String>) {
@@ -6,6 +6,6 @@ fun main(args: Array<String>) {
     print(image.toString())
     println("==========================================")
     val smaller = image.resizeToWidth(20)
-    val compressible = CompressibleImage.of(smaller)
-    println(compressible.compress())
+    val compressible = EncodableImage.of(smaller)
+    println(compressible.encode())
 }

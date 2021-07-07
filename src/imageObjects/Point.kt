@@ -1,11 +1,11 @@
 package imageObjects
 
-import utils.compressDimension
+import utils.encodeDimension
 
 
-data class Point(val x: Int, val y: Int): CompressibleImageObject {
-    override fun compress(): CharArray {
-        return x.compressDimension().plus(y.compressDimension())
+data class Point(val x: Int, val y: Int): EncodableImageObject {
+    override fun encode(): CharArray {
+        return x.encodeDimension().plus(y.encodeDimension())
     }
 
 }

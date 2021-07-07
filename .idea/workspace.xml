@@ -77,30 +77,13 @@
       <recent name="imageObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.tests in ImageCharacterCompressor">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.IntegrationTests.encode_image_from_file">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EndToEndTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ImageCharacterCompressor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.EndToEndTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -154,6 +137,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="images in ImageCharacterCompressor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="images.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="images" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="tests in ImageCharacterCompressor" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
@@ -170,11 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.IntegrationTests.encode_image_from_file" />
+        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
+        <item itemvalue="JUnit.images in ImageCharacterCompressor" />
         <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_02" />
         <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_01" />
-        <item itemvalue="JUnit.EndToEndTests" />
       </list>
     </recent_temporary>
   </component>
@@ -203,6 +200,7 @@
       <workItem from="1625459996027" duration="2000" />
       <workItem from="1625571646249" duration="10264000" />
       <workItem from="1625645904474" duration="8424000" />
+      <workItem from="1625663681030" duration="2841000" />
     </task>
     <servers />
   </component>

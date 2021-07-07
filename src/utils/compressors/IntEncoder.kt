@@ -10,19 +10,19 @@ import kotlin.test.assertTrue
 
 
 /**
- * Compresses a dimension [that comes after a double pixel]
+ * Encodes a dimension [that comes after a double pixel]
  * into a CharArray
  */
-fun Int.compressDimension(): CharArray {
-    return compressValue(this)
+fun Int.encodeDimension(): CharArray {
+    return encodeValue(this)
 }
 
 /**
- * Compresses a dimension that comes after a single pixel
+ * Encodes a dimension that comes after a single pixel
  * into a CharArray
  */
-fun Int.compressDimensionSP(): CharArray {
-    val ret = compressValue(this)
+fun Int.encodeDimensionSP(): CharArray {
+    val ret = encodeValue(this)
     ret[0] = ret[0].toSP()
     return ret
 }
@@ -38,9 +38,9 @@ fun Char.fromSP(): Char {
 }
 
 /**
- * Compresses a value into a CharArray
+ * Encodes a value into a CharArray
  */
-private fun compressValue(x: Int): CharArray {
+private fun encodeValue(x: Int): CharArray {
     if (x == 0) {
         return charArrayOf(encodeRawInt((0+VALUE_INT_BEGIN.toInt()).toChar()))
     }

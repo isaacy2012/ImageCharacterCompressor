@@ -4,7 +4,7 @@ import MAX_DIMENSION
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
-import images.CompressibleImage
+import images.EncodableImage
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
@@ -19,9 +19,9 @@ internal class SpecificationTests {
                 Pixel(0), Pixel(1), Pixel(2),
                 Pixel(1), Square(2, Pixel(0)),
                 Pixel(3))
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         val expected = arrayOf("vsp3", "vsp3", "0,1", "2,1", "v2", "0,3").contentToString()
-        val actual = image.compress().toHumanReadable()
+        val actual = image.encode().toHumanReadable()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -37,9 +37,9 @@ internal class SpecificationTests {
                 Pixel(1),
                 Pixel(3), Pixel(2), Pixel(1)
         )
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         val expected = arrayOf("vsp3", "vsp3", "1,0", "vsp2", "1,1", "3,2", "1,0").contentToString()
-        val actual = image.compress().toHumanReadable()
+        val actual = image.encode().toHumanReadable()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -56,9 +56,9 @@ internal class SpecificationTests {
                 Pixel(2),
                 Pixel(3)
         )
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         val expected = arrayOf("vsp3", "vsp3", "vsp2", "0,1", "2,1", "2,3").contentToString()
-        val actual = image.compress().toHumanReadable()
+        val actual = image.encode().toHumanReadable()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -67,9 +67,9 @@ internal class SpecificationTests {
         val data: ArrayList<ImageObject> = arrayListOf(
                 Square(3, Pixel(0))
         )
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         val expected = arrayOf("vsp3", "vsp3", "vsp3", "0,0").contentToString()
-        val actual = image.compress().toHumanReadable()
+        val actual = image.encode().toHumanReadable()
         Assertions.assertEquals(expected, actual)
     }
 
@@ -78,9 +78,9 @@ internal class SpecificationTests {
         val data: ArrayList<ImageObject> = arrayListOf(
                 Square(300, Pixel(2))
         )
-        val image = CompressibleImage(300, 300, data)
+        val image = EncodableImage(300, 300, data)
         val expected = arrayOf("vsp3", "v72", "vsp3", "v72", "vsp3", "v" + (300 - 3 * MAX_DIMENSION.toInt()), "2,0").contentToString()
-        val actual = image.compress().toHumanReadable()
+        val actual = image.encode().toHumanReadable()
         Assertions.assertEquals(expected, actual)
     }
 }

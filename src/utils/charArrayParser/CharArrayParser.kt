@@ -6,7 +6,7 @@ import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
 import imageObjects.getPixelPairFromChar
-import images.CompressibleImage
+import images.EncodableImage
 import isNonSPValue
 import isPixel
 import isSPValue
@@ -14,7 +14,7 @@ import utils.fromSP
 import java.util.*
 import kotlin.test.assertTrue
 
-fun parseCharArray(arr: CharArray): CompressibleImage {
+fun parseCharArray(arr: CharArray): EncodableImage {
     val queue = ArrayDeque(arr.toList())
     val data = ArrayList<ImageObject>()
     val width = parseDimension(queue)
@@ -64,7 +64,7 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
 
         }
     }
-    return CompressibleImage(width, height, data)
+    return EncodableImage(width, height, data)
 }
 
 private fun pow2(x: Int): Int {

@@ -3,10 +3,11 @@ package tests
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
-import images.CompressibleImage
+import images.EncodableImage
 import images.Image
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import utils.converters.imageToEncodableImageNaiveSquare
 import java.util.*
 
 /**
@@ -20,7 +21,7 @@ internal class IntegrationTests {
         val data: ArrayList<ImageObject> = arrayListOf(
                 Pixel(0)
         )
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         encode_decode_test(1, 1, data)
     }
 
@@ -64,7 +65,7 @@ internal class IntegrationTests {
                 Pixel(2),
                 Pixel(3)
         )
-        val image = CompressibleImage(3, 3, data)
+        val image = EncodableImage(3, 3, data)
         val expected = "" +
                 "0 0 1\n" +
                 "0 0 2\n" +
@@ -90,7 +91,7 @@ internal class IntegrationTests {
                 Pixel(2), Pixel(1),
                 Pixel(3), Pixel(4)
         )
-        val image = CompressibleImage(4, 4, data)
+        val image = EncodableImage(4, 4, data)
         val expected = "" +
                 "0 0 1 2\n" +
                 "0 0 1 2\n" +
@@ -115,7 +116,7 @@ internal class IntegrationTests {
                 Square(2, Pixel(4)),
                 Square(2, Pixel(7))
         )
-        val image = CompressibleImage(4, 4, data)
+        val image = EncodableImage(4, 4, data)
         val expected = "" +
                 "0 0 2 2\n" +
                 "0 0 2 2\n" +
@@ -144,7 +145,7 @@ internal class IntegrationTests {
                 "4 4 4 4 7 7 7 7\n" +
                 "4 4 4 4 7 7 7 7"
         val image = imageFromString(8, 8, imageString)
-        val compressed = CompressibleImage.of(image)
+        val compressed = EncodableImage.of(image)
         assertEquals(expected, compressed.data)
         assertEquals(imageString, compressed.toString())
     }
@@ -174,7 +175,7 @@ internal class IntegrationTests {
                 "4 4 4 4 7 7 7 3\n" +
                 "4 4 4 4 3 3 3 3"
         val image = imageFromString(8, 8, imageString)
-        val compressed = CompressibleImage.of(image)
+        val compressed = EncodableImage.of(image)
         assertEquals(expected, compressed.data)
         assertEquals(imageString, compressed.toString())
     }
@@ -192,11 +193,15 @@ internal class IntegrationTests {
 
     @Test
     fun encode_image_from_file() {
-        val image = Image("samd.png")
-        val compressible = CompressibleImage.of(image)
-        val charArray = compressible.compress()
-        val decoded = CompressibleImage.fromCharArray(charArray)
-        println(decoded.debugToString())
+        val image = Image("bliss.png")
+        val compressible = EncodableImage.of(image)
+        val badCompressible = imageToEncodableImageNaiveSquare(image)
+        val charArray = compressible.encode()
+        val badCharArray = badCompressible.encode()
+//        assertEquals(compressible.debugToString(), badCompressible.debugToString())
+        println("good: " + charArray.size + " bad: " + badCharArray.size)
+        val decoded = EncodableImage.fromCharArray(charArray)
+//        println(decoded.debugToString())
         assertEquals(compressible.data, decoded.data)
 
     }

@@ -2,23 +2,23 @@ package utils.compressors
 
 import imageObjects.Pixel
 import imageObjects.Square
-import images.CompressibleImage
+import images.EncodableImage
 import images.addAll
-import utils.compressDimension
-import utils.compressDimensionSP
+import utils.encodeDimension
+import utils.encodeDimensionSP
 import java.util.*
 
-fun compressCompressibleImage(cimage: CompressibleImage): CharArray {
+fun encodeEncodableImage(cimage: EncodableImage): CharArray {
     val list = ArrayList<Char>()
-//add width and height information
-    list.addAll(cimage.width.compressDimensionSP())
-    list.addAll(cimage.height.compressDimensionSP())
+    //add width and height information
+    list.addAll(cimage.width.encodeDimensionSP())
+    list.addAll(cimage.height.encodeDimensionSP())
 
     var cache: Pixel? = null
     var lastSquare = false
     var counter = 0
     val dataQueue = ArrayDeque(cimage.data)
-//pop from queue
+    //pop from queue
     while (dataQueue.isEmpty() == false) {
         val temp = dataQueue.pop()
         if (temp is Pixel) {
@@ -39,14 +39,14 @@ fun compressCompressibleImage(cimage: CompressibleImage): CharArray {
                 list.add(cache.compressSingle())
                 cache = null
                 // Add this square's dimension as a single pixel-breaking dimension
-                list.addAll(temp.dimension.compressDimensionSP())
+                list.addAll(temp.dimension.encodeDimensionSP())
             } else {
                 // if this is the first addition
                 if (counter == 0 || lastSquare) {
-                    list.addAll(temp.dimension.compressDimensionSP())
+                    list.addAll(temp.dimension.encodeDimensionSP())
                 } else {
                     // Add this square's dimension normally
-                    list.addAll(temp.dimension.compressDimension())
+                    list.addAll(temp.dimension.encodeDimension())
                 }
             }
             cache = temp.pixel
@@ -54,11 +54,11 @@ fun compressCompressibleImage(cimage: CompressibleImage): CharArray {
             lastSquare = true
         }
     }
-// If there is still a pixel left in the cache, flush it out
+    // If there is still a pixel left in the cache, flush it out
     if (cache != null) {
         list.add(cache.compressSingle())
     }
 
-// Return list as CharArray
+    // Return list as CharArray
     return list.toCharArray()
 }

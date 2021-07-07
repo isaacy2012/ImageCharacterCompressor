@@ -1,10 +1,10 @@
 package imageObjects
 
-class DecoratorPixel(x: Int, y: Int, color: Int) : CompressibleImageObject {
+class DecoratorPixel(x: Int, y: Int, color: Int) : EncodableImageObject {
     val pixel: Pixel = Pixel(color)
     val point: Point = Point(x, y)
 
-    override fun compress(): CharArray {
+    override fun encode(): CharArray {
         TODO("Not yet implemented")
     }
 }

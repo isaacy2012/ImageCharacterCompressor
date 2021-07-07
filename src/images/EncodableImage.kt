@@ -1,24 +1,24 @@
 package images
-import Compressible
+import Encodable
 import imageObjects.ImageObject
 import utils.charArrayParser.parseCharArray
-import utils.compressors.compressCompressibleImage
-import utils.converters.imageToCompressibleImage
+import utils.compressors.encodeEncodableImage
+import utils.converters.imageToEncodableImage
 
 /**
  * Make a compressed Image from an Image
  */
-class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageObject>) : Compressible {
+class EncodableImage(var width: Int, var height: Int, data: ArrayList<ImageObject>) : Encodable {
 
     companion object {
         /**
          * Make a CompressibleImage from an Image
          */
-        fun of(image: Image): CompressibleImage {
-            return imageToCompressibleImage(image)
+        fun of(image: Image): EncodableImage {
+            return imageToEncodableImage(image)
         }
 
-        fun fromCharArray(arr: CharArray): CompressibleImage {
+        fun fromCharArray(arr: CharArray): EncodableImage {
             return parseCharArray(arr)
         }
     }
@@ -30,8 +30,8 @@ class CompressibleImage(var width: Int, var height: Int, data: ArrayList<ImageOb
         this.data = data
     }
 
-    override fun compress(): CharArray {
-        return compressCompressibleImage(this)
+    override fun encode(): CharArray {
+        return encodeEncodableImage(this)
     }
 
     override fun toString(): String {

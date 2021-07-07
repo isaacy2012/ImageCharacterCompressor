@@ -9,14 +9,14 @@ import VALUE_INT_BEGIN_SP
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
-import images.CompressibleImage
+import images.EncodableImage
 import org.junit.jupiter.api.Assertions
 import java.util.*
 
 internal fun encode_decode_test(width: Int, height: Int, data: ArrayList<ImageObject>) {
-    val image = CompressibleImage(width, height, data)
-    val charArray = image.compress()
-    val decoded = CompressibleImage.fromCharArray(charArray)
+    val image = EncodableImage(width, height, data)
+    val charArray = image.encode()
+    val decoded = EncodableImage.fromCharArray(charArray)
 
     Assertions.assertEquals(width, decoded.width)
     Assertions.assertEquals(height, decoded.height)
@@ -28,7 +28,7 @@ internal fun CharArray.toHumanReadable(): String {
 }
 
 
-internal fun CompressibleImage.debugToString(): String {
+internal fun EncodableImage.debugToString(): String {
    val newData: Array<Array<String?>> = Array(height) { arrayOfNulls<String>(width) }
    var row = 0;
    var col = 0;

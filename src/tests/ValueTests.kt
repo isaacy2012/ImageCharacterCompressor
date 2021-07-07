@@ -11,8 +11,8 @@ import imageObjects.Pixel
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import utils.compressDimension
-import utils.compressDimensionSP
+import utils.encodeDimension
+import utils.encodeDimensionSP
 import utils.encodeInt
 import java.util.*
 import kotlin.math.abs
@@ -32,8 +32,8 @@ internal class ValueTests {
     }
 
     fun consts() {
-        println(0.compressDimension()[0].toInt())
-        println(0.compressDimensionSP()[0].toInt())
+        println(0.encodeDimension()[0].toInt())
+        println(0.encodeDimensionSP()[0].toInt())
     }
 
     @Test
@@ -52,7 +52,7 @@ internal class ValueTests {
         val random = Random(1)
         for (i in 0..1000) {
             val num = abs(random.nextInt())
-            val list = num.compressDimension().toList()
+            val list = num.encodeDimension().toList()
 
             //using reflection to access private function
             val c = Class.forName("utils.charArrayParser.CharArrayParserKt")
@@ -60,7 +60,7 @@ internal class ValueTests {
             parseDimensionKF.isAccessible = true
 
             Assertions.assertEquals(num, parseDimensionKF.call(ArrayDeque(list)))
-            val list2 = num.compressDimensionSP().toList()
+            val list2 = num.encodeDimensionSP().toList()
             Assertions.assertEquals(num, parseDimensionKF.call(ArrayDeque(list2)))
         }
     }
@@ -73,7 +73,7 @@ internal class ValueTests {
         for (i in 0..1000) {
             val num = abs(random.nextInt())
             expected.add(num)
-            val list = num.compressDimensionSP().toList()
+            val list = num.encodeDimensionSP().toList()
             charArrayList.addAll(list)
         }
         val deque = ArrayDeque(charArrayList)

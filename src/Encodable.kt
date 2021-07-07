@@ -1,6 +1,6 @@
-interface Compressible {
+interface Encodable {
     /**
      * Compresses the object into a CharArray
      */
-    fun compress(): CharArray
+    fun encode(): CharArray
 }

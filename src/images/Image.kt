@@ -2,12 +2,10 @@ package images
 import BLUE_WEIGHT
 import GREEN_WEIGHT
 import K
-import MAX_PIXELS
 import PIXEL_MAX_DEPTH
 import RED_WEIGHT
-import exceptions.ImageSizeException
 import imageObjects.Pixel
-import utils.converters.compressibleImageToImage
+import utils.converters.encodableToImage
 import java.awt.Color
 import java.io.File
 import java.io.IOException
@@ -27,8 +25,8 @@ private fun convertRgbToGrayscale(rgb: Int): Int {
 class Image() {
 
     companion object {
-        fun of(cimage: CompressibleImage): Image {
-            return compressibleImageToImage(cimage)
+        fun of(cimage: EncodableImage): Image {
+            return encodableToImage(cimage)
         }
     }
 
@@ -48,9 +46,9 @@ class Image() {
             val img = ImageIO.read(File(fileName))
             this.width = img.width
             this.height = img.height
-            if (width * height > MAX_PIXELS) {
-                throw ImageSizeException("Error, photo too large. Please use an image with no more than 900 pixels.");
-            }
+//            if (width * height > MAX_PIXELS) {
+//                throw ImageSizeException("Error, photo too large. Please use an image with no more than 900 pixels.");
+//            }
 
             //Scanline
             data = Array(height) { arrayOfNulls<Pixel>(width) }
