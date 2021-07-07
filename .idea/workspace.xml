@@ -77,16 +77,14 @@
       <recent name="imageObjects" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.tests in ImageCharacterCompressor">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.IntegrationTests.encode_image_from_file">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -170,8 +168,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.IntegrationTests.encode_image_from_file" />
+        <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
         <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_02" />
         <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_01" />
         <item itemvalue="JUnit.EndToEndTests" />

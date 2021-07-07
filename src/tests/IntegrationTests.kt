@@ -192,7 +192,7 @@ internal class IntegrationTests {
 
     @Test
     fun encode_image_from_file() {
-        val image = Image("samd.png")
+        val image = Image("bliss.png")
         val compressible = CompressibleImage.of(image)
         val charArray = compressible.compress()
         val decoded = CompressibleImage.fromCharArray(charArray)
