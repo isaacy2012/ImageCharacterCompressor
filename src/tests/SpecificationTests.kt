@@ -1,10 +1,10 @@
 package tests
 
-import CompressibleImage
 import MAX_DIMENSION
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
+import images.CompressibleImage
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 

@@ -1,17 +1,18 @@
 package tests
 
-import CompressibleImage
-import Image
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
+import images.CompressibleImage
+import images.Image
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.util.*
 
 /**
- * These end to end tests should pass regardless of whether the specification changes
+ * These integration should pass regardless of whether the specification changes
  */
-internal class EndToEndTests {
+internal class IntegrationTests {
 
 
     @Test
@@ -101,10 +102,10 @@ internal class EndToEndTests {
     }
 
     /**
-     * 0 0 1 2
-     * 0 0 1 2
-     * 1 1 2 1
-     * 1 1 3 4
+     * 0 0 2 2
+     * 0 0 2 2
+     * 1 1 7 7
+     * 1 1 7 7
      */
     @Test
     fun encode_decode_image_test_05() {
@@ -126,11 +127,78 @@ internal class EndToEndTests {
     }
 
     @Test
+    fun image_to_compressible_test_01() {
+        val expected: ArrayList<ImageObject> = arrayListOf(
+                Square(4, Pixel(0)),
+                Square(4, Pixel(2)),
+                Square(4, Pixel(4)),
+                Square(4, Pixel(7))
+        )
+        val imageString =  "" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "4 4 4 4 7 7 7 7\n" +
+                "4 4 4 4 7 7 7 7\n" +
+                "4 4 4 4 7 7 7 7\n" +
+                "4 4 4 4 7 7 7 7"
+        val image = imageFromString(8, 8, imageString)
+        val compressed = CompressibleImage.of(image)
+        assertEquals(expected, compressed.data)
+        assertEquals(imageString, compressed.toString())
+    }
+
+    @Test
+    fun image_to_compressible_test_02() {
+        val expected: ArrayList<ImageObject> = arrayListOf(
+                Square(4, Pixel(0)),
+                Square(4, Pixel(2)),
+                Square(4, Pixel(4)),
+                Square(3, Pixel(7)),
+                Pixel(3),
+                Pixel(3),
+                Pixel(3),
+                Pixel(3),
+                Pixel(3),
+                Pixel(3),
+                Pixel(3)
+        )
+        val imageString =  "" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "0 0 0 0 2 2 2 2\n" +
+                "4 4 4 4 7 7 7 3\n" +
+                "4 4 4 4 7 7 7 3\n" +
+                "4 4 4 4 7 7 7 3\n" +
+                "4 4 4 4 3 3 3 3"
+        val image = imageFromString(8, 8, imageString)
+        val compressed = CompressibleImage.of(image)
+        assertEquals(expected, compressed.data)
+        assertEquals(imageString, compressed.toString())
+    }
+
+    private fun imageFromString(width: Int, height: Int, str: String): Image {
+        val s = Scanner(str.replace("\n", " "))
+        val data: Array<Array<Pixel?>> = Array(height) { arrayOfNulls<Pixel>(width) }
+        for (row in 0 until height) {
+            for (col in 0 until width) {
+                data[row][col] = Pixel(s.nextInt())
+            }
+        }
+        return Image(width, height, data)
+    }
+
+    @Test
     fun encode_image_from_file() {
         val image = Image("samd.png")
-        val smaller = image.resizeToWidth(20)
-        val compressible = CompressibleImage.of(smaller)
-        assertEquals(smaller.toString(), compressible.toString())
+        val compressible = CompressibleImage.of(image)
+        val charArray = compressible.compress()
+        val decoded = CompressibleImage.fromCharArray(charArray)
+        println(decoded.debugToString())
+        assertEquals(compressible.data, decoded.data)
+
     }
 
 

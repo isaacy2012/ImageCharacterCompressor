@@ -1,12 +1,12 @@
 package utils.charArrayParser
 
-import CompressibleImage
 import MAX_DIMENSION
 import VALUE_INT_BEGIN
 import imageObjects.ImageObject
 import imageObjects.Pixel
 import imageObjects.Square
 import imageObjects.getPixelPairFromChar
+import images.CompressibleImage
 import isNonSPValue
 import isPixel
 import isSPValue
@@ -22,12 +22,17 @@ fun parseCharArray(arr: CharArray): CompressibleImage {
     val wh = width * height
 
     var counter = 0
-    while (queue.isEmpty() == false && counter < wh) {
+    while (queue.isEmpty() == false && counter != width*height) {
         val nextCh = queue.peek()
         when {
             nextCh.isPixel() -> {
-                data.addAll(parsePixelPair(queue))
-                counter += 2
+                val pixels = parsePixelPair(queue)
+                data.add(pixels[0])
+                counter++
+                if (counter < wh) {
+                    data.add(pixels[1])
+                    counter++
+                }
             }
             //non SP Value or it is the first Square
             nextCh.isNonSPValue() || (nextCh.isSPValue() && data.isEmpty()) -> {

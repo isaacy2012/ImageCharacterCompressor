@@ -13,8 +13,8 @@ fun getPixelPairFromChar(ch: Char): Array<Pixel> {
 
 data class Pixel(val color: Int): ImageObject {
     init {
-        assert(color >= 0)
-        assert(color <= PIXEL_MAX_DEPTH)
+        assert(color >= 0) {"color $color was below 0"}
+        assert(color <= PIXEL_MAX_DEPTH) {"color $color was too high"}
     }
 
     /**

@@ -1,11 +1,16 @@
-
+package images
+import BLUE_WEIGHT
+import GREEN_WEIGHT
+import K
+import MAX_PIXELS
+import PIXEL_MAX_DEPTH
+import RED_WEIGHT
 import exceptions.ImageSizeException
 import imageObjects.Pixel
-import imageObjects.Square
+import utils.converters.compressibleImageToImage
 import java.awt.Color
 import java.io.File
 import java.io.IOException
-import java.util.*
 import javax.imageio.ImageIO
 import kotlin.math.roundToInt
 
@@ -23,48 +28,7 @@ class Image() {
 
     companion object {
         fun of(cimage: CompressibleImage): Image {
-            val newData: Array<Array<Pixel?>> = Array(cimage.height) { arrayOfNulls<Pixel>(cimage.width) }
-            var row = 0;
-            var col = 0;
-            val dataQueue = ArrayDeque(cimage.data)
-            //pop from queue
-            while (dataQueue.isEmpty() == false && row < cimage.height) {
-                val temp = dataQueue.pop()
-                // if current [row][col] has already been filled by a square
-                // keep going through the scan until there is an unfilled pixel space
-                while (newData[row][col] != null) {
-                    col++
-                    if (col == cimage.width) {
-                        row++
-                        col = 0
-                        if (row == cimage.height ) {
-                            break;
-                        }
-                    }
-                }
-                //add to the array if single pixel
-                if (temp is Pixel) {
-                    newData[row][col] = temp
-                } else if (temp is Square) {
-                    // fill each pixel space in the square
-                    for (dRow in 0 until temp.dimension) {
-                        for (dCol in 0 until temp.dimension) {
-                            newData[row+dRow][col+dCol] = temp.pixel
-                        }
-                    }
-                }
-                //after each, continue scan
-                col++
-                // wrap around at width
-                if (col == cimage.width) {
-                    row++
-                    col = 0
-                    if (row == cimage.height ) {
-                        break;
-                    }
-                }
-            }
-            return Image(cimage.width, cimage.height, newData)
+            return compressibleImageToImage(cimage)
         }
     }
 

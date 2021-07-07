@@ -2,15 +2,18 @@ package tests
 
 import CHAR_BEGIN
 import CHAR_MAX
-import CompressibleImage
 import LAST
 import PIXEL_MAX_DEPTH
 import VALUE_INT_BEGIN
 import VALUE_INT_BEGIN_SP
 import imageObjects.ImageObject
+import imageObjects.Pixel
+import imageObjects.Square
+import images.CompressibleImage
 import org.junit.jupiter.api.Assertions
+import java.util.*
 
-fun encode_decode_test(width: Int, height: Int, data: ArrayList<ImageObject>) {
+internal fun encode_decode_test(width: Int, height: Int, data: ArrayList<ImageObject>) {
     val image = CompressibleImage(width, height, data)
     val charArray = image.compress()
     val decoded = CompressibleImage.fromCharArray(charArray)
@@ -20,14 +23,66 @@ fun encode_decode_test(width: Int, height: Int, data: ArrayList<ImageObject>) {
     Assertions.assertEquals(image.toString(), decoded.toString())
 }
 
-fun CharArray.toHumanReadable(): String {
+internal fun CharArray.toHumanReadable(): String {
    return this.map { parseChar(it) }.toTypedArray().contentToString()
+}
+
+
+internal fun CompressibleImage.debugToString(): String {
+   val newData: Array<Array<String?>> = Array(height) { arrayOfNulls<String>(width) }
+   var row = 0;
+   var col = 0;
+   val dataQueue = ArrayDeque(data)
+   //pop from queue
+   while (dataQueue.isEmpty() == false && row < height) {
+      val temp = dataQueue.pop()
+      // if current [row][col] has already been filled by a square
+      // keep going through the scan until there is an unfilled pixel space
+      while (newData[row][col] != null) {
+         col++
+         if (col == width) {
+            row++
+            col = 0
+            if (row == height ) {
+               break;
+            }
+         }
+      }
+      //add to the array if single pixel
+      if (temp is Pixel) {
+         newData[row][col] = " $temp "
+      } else if (temp is Square) {
+         // fill each pixel space in the square
+         for (dRow in 0 until temp.dimension) {
+            for (dCol in 0 until temp.dimension) {
+               newData[row+dRow][col+dCol] = "["+temp.pixel.toString()+"]"
+            }
+         }
+      }
+      //after each, continue scan
+      col++
+      // wrap around at width
+      if (col == width) {
+         row++
+         col = 0
+         if (row == height ) {
+            break;
+         }
+      }
+   }
+   val sb = StringBuilder()
+   sb.append(newData.joinToString("\n"){
+      val innersb = StringBuilder()
+      innersb.append(it.joinToString(""))
+      innersb.toString()
+   })
+   return (sb.toString())
 }
 
 /**
  * Convert ICC Char into human-readable form
  */
-fun parseChar(ch: Char): String {
+internal fun parseChar(ch: Char): String {
    Assertions.assertTrue(ch >= CHAR_BEGIN)
    Assertions.assertTrue(ch <= CHAR_MAX)
    when {

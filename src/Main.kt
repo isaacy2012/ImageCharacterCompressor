@@ -1,3 +1,6 @@
+import images.CompressibleImage
+import images.Image
+
 fun main(args: Array<String>) {
     val image = Image("samd.png")
     print(image.toString())

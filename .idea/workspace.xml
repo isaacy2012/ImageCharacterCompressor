@@ -49,7 +49,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="com.maddyhome.idea.vim.ui.VimEmulationConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin" />
   </component>
   <component name="ReaderModeSettings">
     <option name="showRenderedDocs" value="false" />
@@ -78,18 +78,20 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.tests in ImageCharacterCompressor">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CharacterEncoderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EndToEndTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -98,13 +100,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.CharacterEncoderTests" />
+      <option name="MAIN_CLASS_NAME" value="tests.EndToEndTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ValueTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTests.encode_image_from_file" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -113,29 +115,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ValueTests.encode_dimension_multi_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ImageCharacterCompressor" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
-      <option name="METHOD_NAME" value="encode_dimension_multi_test" />
+      <option name="MAIN_CLASS_NAME" value="tests.IntegrationTests" />
+      <option name="METHOD_NAME" value="encode_image_from_file" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ValueTests.encode_dimension_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTests.image_to_compressible_test_01" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
         <pattern>
@@ -144,8 +131,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.ValueTests" />
-      <option name="METHOD_NAME" value="encode_dimension_test" />
+      <option name="MAIN_CLASS_NAME" value="tests.IntegrationTests" />
+      <option name="METHOD_NAME" value="image_to_compressible_test_01" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IntegrationTests.image_to_compressible_test_02" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ImageCharacterCompressor" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.IntegrationTests" />
+      <option name="METHOD_NAME" value="image_to_compressible_test_02" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -168,10 +171,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.tests in ImageCharacterCompressor" />
-        <item itemvalue="JUnit.ValueTests.encode_dimension_multi_test" />
-        <item itemvalue="JUnit.ValueTests.encode_dimension_test" />
-        <item itemvalue="JUnit.ValueTests" />
-        <item itemvalue="JUnit.CharacterEncoderTests" />
+        <item itemvalue="JUnit.IntegrationTests.encode_image_from_file" />
+        <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_02" />
+        <item itemvalue="JUnit.IntegrationTests.image_to_compressible_test_01" />
+        <item itemvalue="JUnit.EndToEndTests" />
       </list>
     </recent_temporary>
   </component>
@@ -198,7 +201,8 @@
       <workItem from="1625286960564" duration="34544000" />
       <workItem from="1625397899957" duration="5084000" />
       <workItem from="1625459996027" duration="2000" />
-      <workItem from="1625571646249" duration="9676000" />
+      <workItem from="1625571646249" duration="10264000" />
+      <workItem from="1625645904474" duration="8424000" />
     </task>
     <servers />
   </component>
@@ -209,14 +213,20 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/Image.kt</url>
-          <line>74</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="22" />
+          <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
+          <line>38</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
+          <line>46</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
