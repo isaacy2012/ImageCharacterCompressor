@@ -7,6 +7,7 @@ import images.CompressibleImage
 import images.Image
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import utils.converters.imageToCompressibleImageNoSquares
 import java.util.*
 
 /**
@@ -14,6 +15,19 @@ import java.util.*
  */
 internal class IntegrationTests {
 
+    /**
+     * Creates an image from a string
+     */
+    private fun imageFromString(width: Int, height: Int, str: String): Image {
+        val s = Scanner(str.replace("\n", " "))
+        val data: Array<Array<Pixel?>> = Array(height) { arrayOfNulls<Pixel>(width) }
+        for (row in 0 until height) {
+            for (col in 0 until width) {
+                data[row][col] = Pixel(s.nextInt())
+            }
+        }
+        return Image(width, height, data)
+    }
 
     @Test
     fun encode_decode_image_test_single_pixel() {
@@ -179,23 +193,17 @@ internal class IntegrationTests {
         assertEquals(imageString, compressed.toString())
     }
 
-    private fun imageFromString(width: Int, height: Int, str: String): Image {
-        val s = Scanner(str.replace("\n", " "))
-        val data: Array<Array<Pixel?>> = Array(height) { arrayOfNulls<Pixel>(width) }
-        for (row in 0 until height) {
-            for (col in 0 until width) {
-                data[row][col] = Pixel(s.nextInt())
-            }
-        }
-        return Image(width, height, data)
-    }
 
     @Test
     fun encode_image_from_file() {
-        val image = Image("bliss.png")
+        val image = Image("gavin.png")
         val compressible = CompressibleImage.of(image)
+        val badCompressible = imageToCompressibleImageNoSquares(image)
         val charArray = compressible.compress()
+        val badCharArray = badCompressible.compress()
         val decoded = CompressibleImage.fromCharArray(charArray)
+        println("GOOD: " + charArray.size + " BAD: " + badCharArray.size)
+        println(charArray.joinToString(""))
         println(decoded.debugToString())
         assertEquals(compressible.data, decoded.data)
 

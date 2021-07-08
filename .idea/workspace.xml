@@ -21,9 +21,6 @@
       </list>
     </option>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.jdks/openjdk-14.0.1/lib/src.zip!/java.base/java/lang/RuntimeException.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="KotlinCodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
   </component>
@@ -78,17 +75,6 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.IntegrationTests.encode_image_from_file">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="EndToEndTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ImageCharacterCompressor" />
       <extension name="coverage">
@@ -201,6 +187,9 @@
       <workItem from="1625459996027" duration="2000" />
       <workItem from="1625571646249" duration="10264000" />
       <workItem from="1625645904474" duration="8424000" />
+      <workItem from="1625716065590" duration="705000" />
+      <workItem from="1625719703802" duration="782000" />
+      <workItem from="1625722022403" duration="52000" />
     </task>
     <servers />
   </component>
@@ -212,12 +201,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
-          <line>38</line>
+          <line>47</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/utils/charArrayParser/CharArrayParser.kt</url>
-          <line>46</line>
+          <line>62</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
